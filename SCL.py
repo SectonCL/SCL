@@ -1,10 +1,11 @@
-print("Загрузка...")
+print("Loading...")
 import os
 import sys
 import random
 import termcolor
 from termcolor import colored
 import webbrowser
+import locals
 
 dFileInsides = ""
 cantClear = False
@@ -16,18 +17,18 @@ receiver = ["f"]       # Received output including everything
 noCmdReceiver = "yes"  # Received output without the first word, NOT a list.
 curPath = "C:/" if os.name == 'nt' else "/"
 usrvars = {
-    "test": "Nice goin', partner."
+    "test": "Nothin' to see here."
 }
 
 try:
     os.system('cls' if os.name == 'nt' else 'clear')
 except Exception:
-    print("SCL не смогла очистить вывод под вашей ОС.")
+    print(locals.def_locale[0])
     cantClear = True
 
 
 
-def regcommand(name: str, desc: str = "Без описания."):
+def regcommand(name: str, desc: str = locals.def_locale[1]):
     global cmds
     cmds[name] = desc
 
@@ -45,7 +46,7 @@ def aftermath():
             try:
                 receiver[index] = usrvars[modified_arg] # This works now
             except KeyError as bigE:
-                print(f"Нет переменной {bigE}!")
+                print(f"{locals.def_locale[2]} {bigE}!")
     noCmdReceiver = " ".join(receiver[1:]).replace(">[",   curPath)
     commander()
 
@@ -62,7 +63,7 @@ def commander():
         try:
             os.system('cls' if os.name == 'nt' else 'clear')
         except Exception:
-            print("SCL не поддерживает команды вашей ОС.\nАвто-очистка отключена.")
+            print(locals.def_locale[3])
             autoClear = False
 
     regcommand("type")
@@ -74,29 +75,29 @@ def commander():
         print(os.path.dirname(curPath) + ":")
         for elem in os.listdir(curPath):
             if os.path.isdir(curPath + elem):
-                print(f" ПАПКА: {elem}")
+                print(f"{locals.def_locale[4]} {elem}")
             elif os.path.islink(curPath + elem):
-                print(f"ССЫЛКА: {elem}")
+                print(f"{locals.def_locale[5]} {elem}")
             elif os.path.isfile(curPath + elem):
-                print(f"  ФАЙЛ: {elem}")
+                print(f"{locals.def_locale[6]} {elem}")
             elif os.path.isabs(curPath + elem):
-                print(f"   АБС: {elem}")
+                print(f"{locals.def_locale[7]} {elem}")
             elif os.path.ismount(curPath + elem):
-                print(f" МАУНТ: {elem}")
+                print(f"{locals.def_locale[8]} {elem}")
             else:
-                print(f"НЕИЗВ.: {elem}")
+                print(f"{locals.def_locale[9]} {elem}")
     elif receiver[0].startswith("cp"):
         if os.path.isdir(noCmdReceiver):
             curPath = noCmdReceiver
         else:
-            print("Такой директории не существует.")
+            print(locals.def_locale[10])
 
     elif receiver[0].startswith("dbg"):
         print(receiver[1])
 
 
     elif receiver[0].startswith("stop"):
-        print("Выхожу...")
+        print(locals.def_locale[11])
         quit(0)
 
     elif receiver[0].startswith("py"):
@@ -108,7 +109,7 @@ def commander():
                     pl_c = pl_c + "import " + lib + "; "
                 exec(str(pl_c) + " ".join(receiver[2:]))
             else:
-                print("Ага ага... Сейчас!")
+                print(locals.def_locale[12])
             """except Exception as excepting:
                 print("Ошибка Python!\n" + str(excepting))
                 pass"""
@@ -123,12 +124,12 @@ def commander():
             try:
                 os.system('cls' if os.name == 'nt' else 'clear')
             except Exception:
-                print("SCL не поддерживает команды вашей ОС.")
+                print(locals.def_locale[3])
         elif not cantClear and noCmdReceiver == "1":
-            print("Включён режим авто-очистки.")
+            print(locals.def_locale[13])
             autoClear = True
         elif not cantClear and noCmdReceiver == "0":
-            print("Режим авто-очистки отключён.")
+            print(locals.def_locale[14])
             autoClear = False
 
     elif receiver[0] == "var":
@@ -138,11 +139,11 @@ def commander():
             if receiver[1] == "remove":
                 usrvars.pop(receiver[2])
             elif receiver[1] == "read":
-                print("Переменная " + str(receiver[2]) + " является:\n" + usrvars[receiver[2]])
+                print(usrvars[receiver[2]])
             elif receiver[1] == "input":
-                usrvars[receiver[2]] = input(str(receiver[2]) + " is: ")
+                usrvars[receiver[2]] = input(str(receiver[2]) + ": ")
         except Exception:
-            print("Проверь правильность переменной!")
+            print(locals.def_locale[15])
 
     elif receiver[0] == "sectonfetch":
         import screeninfo
