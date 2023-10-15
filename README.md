@@ -1,4 +1,4 @@
-![SCL Logo]((https://github.com/Sectonidse/SCL/blob/c6aa8807a0a9ffdb43c60801fb452fc6f0a3776a/scllogo.png) "SCL Logo")
+![SCL Logo](https://github.com/Sectonidse/SCL/blob/c6aa8807a0a9ffdb43c60801fb452fc6f0a3776a/scllogo.png "SCL Logo")
 -----
 SCL is an command-line interpreter that's built on pure Python.
 
