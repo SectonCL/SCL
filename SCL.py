@@ -183,7 +183,7 @@ def commander():
         print()
 
     else:
-        print('Проверьте правильность написания.')
+        print(locals.def_locale[16])
 
     if not scriptmode:
         aftermath()
@@ -228,7 +228,7 @@ if len(sys.argv) > 1:
                     execscript()
             break
 else:
-    print("Добро пожаловать в SCL!")
+    print(locals.def_locale[17])
     # droppedFile = ""
 
 aftermath()
