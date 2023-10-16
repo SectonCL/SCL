@@ -10,8 +10,8 @@ It is ready to use.
 * sectonfetch localization
 * Language switching
 
-## Windows support?
-nope. I can't compile it for Windows and i don't know why, PyInstaller only supports Linux AFAIK.
+## Windows/macOS support?
+nope. I can't compile it for Windows or macOS and i don't know why, PyInstaller only supports Linux AFAIK.
 
 by the way, just wanna say something. This logo isn't random; This logo is kind of like a puzzle.
 Here's the hint: letters SCL and colors RGB are on the logo (Letter S doesn't have a horizontal line that's on the middle.
