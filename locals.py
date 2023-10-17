@@ -28,7 +28,8 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "Auto-Clear mode disabled.", #14
              "Check the variable's name!", #15 this isnt what you think it is
              "This command does not exist.", #16 Command got typed wrong.
-             "Welcome to SCL!" #17 App startup
+             "Welcome to SCL!", #17 App startup
+             "Checking SCLipt for security issues..." #18 File drag-n-dropped into SCL
              ]
 
 def_locale: list = globals()[default_lang + "_locale"]

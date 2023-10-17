@@ -167,7 +167,7 @@ def commander():
             grscb(f" RAM: {used_memory}/{total_memory} MB")
             grscb(f" Python: {platform.python_version()}")
             grscb(" Authors: Secton")
-            grscb(" SCL Version: 2.7, 2023, 12 Oct.")
+            grscb(" SCL Version: 2.9, 2023, 17 Oct.")
             grscb(" Thanks for your interest in SCL!")
             for color in termcolor.COLORS:
                 print(colored("█", color), end="", flush=True)
@@ -200,7 +200,7 @@ def execscript():
 
 
 if len(sys.argv) > 1:
-    print("Проверяем СКЛипт на проблемы с безопасностью...")
+    print(locals.def_locale[17])
     dFileInsides = open(sys.argv[1], "r")
     for line in dFileInsides:
         if line.startswith("py "):
