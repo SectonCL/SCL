@@ -2,8 +2,8 @@
 -----
 SCL is an command-line interpreter that's built on pure Python.
 
-## State
-It is ready to use.
+## Modules to install (For source code)
+`termcolor`, `webbrowser`
 
 ## What's not done yet
 * Scripts for SCL (something like .bat)
