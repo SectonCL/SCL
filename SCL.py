@@ -66,124 +66,124 @@ def commander():
             print(locals.def_locale[3])
             autoClear = False
 
-    regcommand("type")
-    if receiver[0] == "type":
-        print(noCmdReceiver)
+    match receiver[0]:
+        case "type":
+            print(noCmdReceiver)
 
 
-    elif receiver[0] == "sp":
-        print(os.path.dirname(curPath) + ":")
-        for elem in os.listdir(curPath):
-            if os.path.isdir(curPath + elem):
-                print(f"{locals.def_locale[4]} {elem}")
-            elif os.path.islink(curPath + elem):
-                print(f"{locals.def_locale[5]} {elem}")
-            elif os.path.isfile(curPath + elem):
-                print(f"{locals.def_locale[6]} {elem}")
-            elif os.path.isabs(curPath + elem):
-                print(f"{locals.def_locale[7]} {elem}")
-            elif os.path.ismount(curPath + elem):
-                print(f"{locals.def_locale[8]} {elem}")
+        case "sp":
+            print(os.path.dirname(curPath) + ":")
+            for elem in os.listdir(curPath):
+                if os.path.isdir(curPath + elem):
+                    print(f"{locals.def_locale[4]} {elem}")
+                elif os.path.islink(curPath + elem):
+                    print(f"{locals.def_locale[5]} {elem}")
+                elif os.path.isfile(curPath + elem):
+                    print(f"{locals.def_locale[6]} {elem}")
+                elif os.path.isabs(curPath + elem):
+                    print(f"{locals.def_locale[7]} {elem}")
+                elif os.path.ismount(curPath + elem):
+                    print(f"{locals.def_locale[8]} {elem}")
+                else:
+                    print(f"{locals.def_locale[9]} {elem}")
+        case "cp":
+            if os.path.isdir(noCmdReceiver):
+                curPath = noCmdReceiver
             else:
-                print(f"{locals.def_locale[9]} {elem}")
-    elif receiver[0].startswith("cp"):
-        if os.path.isdir(noCmdReceiver):
-            curPath = noCmdReceiver
-        else:
-            print(locals.def_locale[10])
+                print(locals.def_locale[10])
 
-    elif receiver[0].startswith("dbg"):
-        print(receiver[1])
+        case "dbg":
+            print(receiver[1])
 
 
-    elif receiver[0].startswith("stop"):
-        print(locals.def_locale[11])
-        quit(0)
+        case "stop":
+            print(locals.def_locale[11])
+            quit(0)
 
-    elif receiver[0].startswith("py"):
-        if receiver[1].startswith("exec"):
-            """try:"""
-            if not noCmdReceiver.__contains__("quit") and not noCmdReceiver.__contains__("exit"):
-                pl_c = ""
-                for lib in plilibs:
-                    pl_c = pl_c + "import " + lib + "; "
-                exec(str(pl_c) + " ".join(receiver[2:]))
-            else:
-                print(locals.def_locale[12])
-            """except Exception as excepting:
-                print("Ошибка Python!\n" + str(excepting))
-                pass"""
-        elif receiver[1].startswith("lib"):
-            if receiver[2] == "install":
-                plilibs.append(receiver[3])
-            elif receiver[2] == "remove":
-                plilibs.remove(receiver[3])
+        case "py":
+            if receiver[1].startswith("exec"):
+                """try:"""
+                if not noCmdReceiver.__contains__("quit") and not noCmdReceiver.__contains__("exit"):
+                    pl_c = ""
+                    for lib in plilibs:
+                        pl_c = pl_c + "import " + lib + "; "
+                    exec(str(pl_c) + " ".join(receiver[2:]))
+                else:
+                    print(locals.def_locale[12])
+                """except Exception as excepting:
+                    print("Ошибка Python!\n" + str(excepting))
+                    pass"""
+            elif receiver[1].startswith("lib"):
+                if receiver[2] == "install":
+                    plilibs.append(receiver[3])
+                elif receiver[2] == "remove":
+                    plilibs.remove(receiver[3])
 
-    elif receiver[0].startswith("clr"):
-        if not cantClear and noCmdReceiver == "":
+        case "clr":
+            if not cantClear and noCmdReceiver == "":
+                try:
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                except Exception:
+                    print(locals.def_locale[3])
+            elif not cantClear and noCmdReceiver == "1":
+                print(locals.def_locale[13])
+                autoClear = True
+            elif not cantClear and noCmdReceiver == "0":
+                print(locals.def_locale[14])
+                autoClear = False
+
+        case "var":
+            if receiver[1] == "set":
+                usrvars[receiver[2]] = " ".join(receiver[3:])
             try:
-                os.system('cls' if os.name == 'nt' else 'clear')
+                if receiver[1] == "remove":
+                    usrvars.pop(receiver[2])
+                elif receiver[1] == "read":
+                    print(usrvars[receiver[2]])
+                elif receiver[1] == "input":
+                    usrvars[receiver[2]] = input(str(receiver[2]) + ": ")
             except Exception:
-                print(locals.def_locale[3])
-        elif not cantClear and noCmdReceiver == "1":
-            print(locals.def_locale[13])
-            autoClear = True
-        elif not cantClear and noCmdReceiver == "0":
-            print(locals.def_locale[14])
-            autoClear = False
+                print(locals.def_locale[15])
 
-    elif receiver[0] == "var":
-        if receiver[1] == "set":
-            usrvars[receiver[2]] = " ".join(receiver[3:])
-        try:
-            if receiver[1] == "remove":
-                usrvars.pop(receiver[2])
-            elif receiver[1] == "read":
-                print(usrvars[receiver[2]])
-            elif receiver[1] == "input":
-                usrvars[receiver[2]] = input(str(receiver[2]) + ": ")
-        except Exception:
-            print(locals.def_locale[15])
+        case "sectonfetch":
+            import screeninfo
+            import platform
+            def grscb(text: str):
+                print(colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])),
+                      colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])),
+                      colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])), text)
+            print(colored("██ ██ ██ ██ ██ ██", "green"), f" Who am I: {os.getlogin()}@{platform.node()}")
+            print(colored("██", "blue"), f"                OS: {platform.system()} {platform.release()}")
+            print(colored("██   ", "blue"), colored("██", "red"), colored("██", "green"), f"       Kernel: {platform.release()}")
+            print(colored("      ██", "blue"), colored("      ██ ", "red"), f"Uptime: {os.popen('uptime -p').read()[:-1]}")
+            savememon = ""
+            for mon in screeninfo.get_monitors():
+                if mon.is_primary: savememon = mon
+            print(colored("               ██ ", "red"), f"Screen: {savememon.width}x{savememon.height}")
+            print(colored("██ ██ ██ ██ ██ ██", "blue"), f" Architecture: {platform.architecture()[0]}")
+            grscb(f" Processor: {platform.processor()}")
+            total_memory, used_memory, free_memory = map(
+                int, os.popen('free -t -m').readlines()[-1].split()[1:])
+            grscb(f" RAM: {used_memory}/{total_memory} MB")
+            grscb(f" Python: {platform.python_version()}")
+            grscb(" Authors: Secton")
+            grscb(" SCL Version: 2.7, 2023, 12 Oct.")
+            grscb(" Thanks for your interest in SCL!")
+            for color in termcolor.COLORS:
+                print(colored("█", color), end="", flush=True)
 
-    elif receiver[0] == "sectonfetch":
-        import screeninfo
-        import platform
-        def grscb(text: str):
-            print(colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])),
-                  colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])),
-                  colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])), text)
-        print(colored("██ ██ ██ ██ ██ ██", "green"), f" Who am I: {os.getlogin()}@{platform.node()}")
-        print(colored("██", "blue"), f"                OS: {platform.system()} {platform.release()}")
-        print(colored("██   ", "blue"), colored("██", "red"), colored("██", "green"), f"       Kernel: {platform.release()}")
-        print(colored("      ██", "blue"), colored("      ██ ", "red"), f"Uptime: {os.popen('uptime -p').read()[:-1]}")
-        savememon = ""
-        for mon in screeninfo.get_monitors():
-            if mon.is_primary: savememon = mon
-        print(colored("               ██ ", "red"), f"Screen: {savememon.width}x{savememon.height}")
-        print(colored("██ ██ ██ ██ ██ ██", "blue"), f" Architecture: {platform.architecture()[0]}")
-        grscb(f" Processor: {platform.processor()}")
-        total_memory, used_memory, free_memory = map(
-            int, os.popen('free -t -m').readlines()[-1].split()[1:])
-        grscb(f" RAM: {used_memory}/{total_memory} MB")
-        grscb(f" Python: {platform.python_version()}")
-        grscb(" Authors: Secton")
-        grscb(" SCL Version: 2.7, 2023, 12 Oct.")
-        grscb(" Thanks for your interest in SCL!")
-        for color in termcolor.COLORS:
-            print(colored("█", color), end="", flush=True)
+        case "think":
+            print("Always think twice.")
+            webbrowser.open("https://youtu.be/Bxc4Fvs3Mmo")
 
-    elif receiver[0] == "think":
-        print("Always think twice.")
-        webbrowser.open("https://youtu.be/Bxc4Fvs3Mmo")
+        case "url":
+            webbrowser.open(noCmdReceiver)
 
-    elif receiver[0] == "url":
-        webbrowser.open(noCmdReceiver)
+        case "help":
+            print()
 
-    elif receiver[0] == "help":
-        print()
-
-    else:
-        print(locals.def_locale[16])
+        case _:
+            print(locals.def_locale[16])
 
     if not scriptmode:
         aftermath()
