@@ -5,7 +5,9 @@ import random
 import termcolor
 from termcolor import colored
 import webbrowser
+
 import locals
+import info
 
 dFileInsides = ""
 cantClear = False
@@ -170,7 +172,7 @@ def commander():
             grscb(f" {locpal[22][7]}: {used_memory}/{total_memory} MB")
             grscb(f" Python: {platform.python_version()}")
             grscb(f" {locpal[22][8]}: Secton")
-            grscb(f" SCL {locpal[22][9]}: 3.0, 2023, 18 Oct.")
+            grscb(f" SCL {locpal[22][9]}: {info.version}")
             grscb(locpal[22][10])
             for color in termcolor.COLORS:
                 print(colored("█", color), end="", flush=True)
