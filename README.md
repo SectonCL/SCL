@@ -7,9 +7,8 @@ SCL is an command-line interpreter that's built on pure Python.
 
 ## What's not done yet
 * Scripts for SCL support (something like .bat)
-* sectonfetch localization
-* Fix that error on compiled SCL: type "stop" and you'll get that error
-* Language switching
+* Language preference auto-save
+* Help command
 
 ## Windows/macOS support?
 nope. I can't compile it for Windows or macOS and i don't know why, PyInstaller only supports Linux AFAIK.
