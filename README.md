@@ -6,8 +6,8 @@ SCL is an command-line interpreter that's built on pure Python.
 `termcolor`, `webbrowser`
 
 ## What's not done yet
-* Scripts for SCL (something like .bat)
-* FULL localization
+* Scripts for SCL support (something like .bat)
+* sectonfetch localization
 * Fix that error on compiled SCL: type "stop" and you'll get that error
 * Language switching
 
