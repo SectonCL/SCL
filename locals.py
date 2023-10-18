@@ -39,7 +39,20 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "You can check py commands (2).\n"
              "We don't take any responsibility for any damage from third-party SCLipts.\n"
              "Time to choose.", #19 Securit issued,
-             "Time to choose: " # 20 Choosing time, G-Man reference.
+             "Time to choose: ", # 20 Choosing time, G-Man reference.
+             "SCL wasn't translated for this language.", # 21
+             ["Who am I", # 0 user
+              "OS", # 1 Operating System
+              "Kernel", # 2
+              "Uptime", # 3 How long system works
+              "Screen", # 4
+              "Architecture", # 5 CPU type
+              "Processor", # 6 CPU
+              "RAM:", # 7 Memory
+              "Authors", # 8 SCL Authors
+              "Version", # 9 SCL Version
+              " Thanks for your interest in SCL!" # 10 Keep the space before the sentence!
+              ] # 22 sectonfetch
              ]
 
 ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear terminal
@@ -81,7 +94,36 @@ ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear 
              "Вы можете просмотреть py команды (2).\n"
              "Мы не берём на себя ответственность за любой ущёрб от стороннего СКЛипта."
              "Время выбирать.",  # 19 Securit issued,
-             "Время выбирать: " # 20 Choosing time, G-Man reference.
+             "Время выбирать: ", # 20 Choosing time, G-Man reference.
+             "SCL не был переведён на этот язык.", # 21
+             ["Кто я", # 0 user
+              "ОС", # 1 Operating System
+              "Кернель", # 2
+              "Время работы", # 3 How long system works
+              "Экран", # 4
+              "Архитектура", # 5 CPU type
+              "Процессор", # 6 CPU
+              "Оперативная память:", # 7 Memory
+              "Авторы", # 8 SCL Authors
+              "Версия", # 9 SCL Version
+              " Спасибо за ваш интерес в SCL!" # 10 Keep the space before the sentence!
+              ] # 22 sectonfetch
              ]
 
-def_locale: list = globals()[default_lang + "_locale"]
+def_locale: list = globals()[default_lang + "_locale"] # This variable will load the localization strings from default lang
+
+def lookup(string: str):
+    if globals()[string + "_locale"] is not None:
+        return True
+    else:
+        return False
+
+def change(string: str):
+    global default_lang
+    global def_locale
+    try:
+        default_lang = string
+        print("teswt")
+        def_locale = globals()[string + "_locale"]
+    except Exception:
+        print("Error! No")

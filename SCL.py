@@ -59,6 +59,8 @@ def commander():
     global noCmdReceiver
     global autoClear
     global scriptmode
+    global cantClear
+    global locpal
 
     if autoClear:
         try:
@@ -99,7 +101,7 @@ def commander():
 
         case "stop":
             print(locpal[11])
-            quit(0)
+            sys.exit(0)
 
         case "py":
             if receiver[1].startswith("exec"):
@@ -153,23 +155,23 @@ def commander():
                 print(colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])),
                       colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])),
                       colored("██", random.choice(["red", "green", "blue"])), colored("██", random.choice(["red", "green", "blue"])), text)
-            print(colored("██ ██ ██ ██ ██ ██", "green"), f" Who am I: {os.getlogin()}@{platform.node()}")
-            print(colored("██", "blue"), f"                OS: {platform.system()} {platform.release()}")
-            print(colored("██   ", "blue"), colored("██", "red"), colored("██", "green"), f"       Kernel: {platform.release()}")
-            print(colored("      ██", "blue"), colored("      ██ ", "red"), f"Uptime: {os.popen('uptime -p').read()[:-1]}")
+            print(colored("██ ██ ██ ██ ██ ██", "green"), f" {locpal[22][0]}: {os.getlogin()}@{platform.node()}")
+            print(colored("██", "blue"), f"                {locpal[22][1]}: {platform.system()} {platform.release()}")
+            print(colored("██   ", "blue"), colored("██", "red"), colored("██", "green"), f"       {locpal[22][2]}: {platform.release()}")
+            print(colored("      ██", "blue"), colored("      ██ ", "red"), f"{locpal[22][3]}: {os.popen('uptime -p').read()[:-1]}")
             savememon = ""
             for mon in screeninfo.get_monitors():
                 if mon.is_primary: savememon = mon
-            print(colored("               ██ ", "red"), f"Screen: {savememon.width}x{savememon.height}")
-            print(colored("██ ██ ██ ██ ██ ██", "blue"), f" Architecture: {platform.architecture()[0]}")
-            grscb(f" Processor: {platform.processor()}")
+            print(colored("               ██ ", "red"), f"{locpal[22][4]}: {savememon.width}x{savememon.height}")
+            print(colored("██ ██ ██ ██ ██ ██", "blue"), f" {locpal[22][5]}: {platform.architecture()[0]}")
+            grscb(f" {locpal[22][6]}: {platform.processor()}")
             total_memory, used_memory, free_memory = map(
                 int, os.popen('free -t -m').readlines()[-1].split()[1:])
-            grscb(f" RAM: {used_memory}/{total_memory} MB")
+            grscb(f" {locpal[22][7]}: {used_memory}/{total_memory} MB")
             grscb(f" Python: {platform.python_version()}")
-            grscb(" Authors: Secton")
-            grscb(" SCL Version: 2.9, 2023, 17 Oct.")
-            grscb(" Thanks for your interest in SCL!")
+            grscb(f" {locpal[22][8]}: Secton")
+            grscb(f" SCL {locpal[22][9]}: 3.0, 2023, 18 Oct.")
+            grscb(locpal[22][10])
             for color in termcolor.COLORS:
                 print(colored("█", color), end="", flush=True)
 
@@ -182,6 +184,22 @@ def commander():
 
         case "help":
             print()
+
+        case "lang":
+            try:
+                if locals.lookup(receiver[1]) is True:
+                    locals.change(receiver[1])
+                    locpal = locals.def_locale
+                    try:
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                    except Exception:
+                        print(locpal[0])
+                        cantClear = True
+                    print(locpal[17])
+            except Exception:
+                print(locpal[21])
+
+
 
         case _:
             print(locpal[16])
