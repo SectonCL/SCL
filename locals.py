@@ -29,7 +29,59 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "Check the variable's name!", #15 this isnt what you think it is
              "This command does not exist.", #16 Command got typed wrong.
              "Welcome to SCL!", #17 App startup
-             "Checking SCLipt for security issues..." #18 File drag-n-dropped into SCL
+             "Checking SCLipt for security issues...", #18 File drag-n-dropped into SCL
+
+             "This SCLipt contains Python commands.\n"
+             "The issue is that the attacker can do something bad\n"
+             "to your system, for example removing files.\n\n"
+             "If you trust this SCLipt, or you wrote this,\n"
+             "you can continue by entering 1, else 0. If you know Python,\n"
+             "You can check py commands (2).\n"
+             "We don't take any responsibility for any damage from third-party SCLipts.\n"
+             "Time to choose.", #19 Securit issued,
+             "Time to choose: " # 20 Choosing time, G-Man reference.
+             ]
+
+ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear terminal
+             "Описание отсутствует",  # 1 Command has no description
+             "Искомое имя не принадлежит ни одной переменной",  # 2 :) Написал так, как написано, если поисковой движок Яндекса в Государственном Каталоге Сайтов не найдёт ничего
+             "SCL частично не поддерживает вашу ОС.",  # 3 Self-explanatory.
+
+             # Keep the string width the same, add the spaces before the words. Here's the example:
+             # GOOD:
+             # " first:"
+             # "second:"
+             # "  nine:"
+             # BAD:
+             # "first:"
+             # "second:"
+             # "nine:"
+             " ПАПКА:",  # 4
+             " ЯРЛЫК:",  # 5
+             "  ФАЙЛ:",  # 6
+             "   АБС:",  # 7
+             "ПОДКЛ.:",  # 8
+             "НЕИЗВ.:",  # 9
+
+             "Такая папка не существует.",  # 10
+             "Выключаюсь...",  # 11 Closing an app.
+             "Попался, который кусался!",  # 12 This phrase appears when user tries to exit the app through the other way.
+             "Auto-Clear включён.",  # 13
+             "Auto-Clear выключен.",  # 14
+             "Проверьте имя переменной!",  # 15 this isnt what you think it is
+             "Эта команда не существует.",  # 16 Command got typed wrong.
+             "Добро пожаловать в SCL!",  # 17 App startup
+             "Проверяем СКЛипт на безопасность...",  # 18 File drag-n-dropped into SCL
+
+             "Данный СКЛипт содержит выполнение Python команд.\n"
+             "Проблема в том, что через Python команды злоумышленник\n"
+             "Может сделать что-то плохое с вашей системой, например удалить файлы.\n\n"
+             "Если же вы доверяете этому СКЛипту, либо вы написали этот СКЛипт,\n"
+             "вы можете продолжить, введя 1, иначе же 0. Если вы знаете Python,\n"
+             "Вы можете просмотреть py команды (2).\n"
+             "Мы не берём на себя ответственность за любой ущёрб от стороннего СКЛипта."
+             "Время выбирать.",  # 19 Securit issued,
+             "Время выбирать: " # 20 Choosing time, G-Man reference.
              ]
 
 def_locale: list = globals()[default_lang + "_locale"]

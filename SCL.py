@@ -11,6 +11,7 @@ dFileInsides = ""
 cantClear = False
 autoClear = False
 scriptmode = False
+locpal = locals.def_locale
 plilibs = []
 cmds = {}
 receiver = ["f"]       # Received output including everything
@@ -23,12 +24,12 @@ usrvars = {
 try:
     os.system('cls' if os.name == 'nt' else 'clear')
 except Exception:
-    print(locals.def_locale[0])
+    print(locpal[0])
     cantClear = True
 
 
 
-def regcommand(name: str, desc: str = locals.def_locale[1]):
+def regcommand(name: str, desc: str = locpal[1]):
     global cmds
     cmds[name] = desc
 
@@ -46,7 +47,7 @@ def aftermath():
             try:
                 receiver[index] = usrvars[modified_arg] # This works now
             except KeyError as bigE:
-                print(f"{locals.def_locale[2]} {bigE}!")
+                print(f"{locpal[2]} {bigE}!")
     noCmdReceiver = " ".join(receiver[1:]).replace(">[",   curPath)
     commander()
 
@@ -63,7 +64,7 @@ def commander():
         try:
             os.system('cls' if os.name == 'nt' else 'clear')
         except Exception:
-            print(locals.def_locale[3])
+            print(locpal[3])
             autoClear = False
 
     match receiver[0]:
@@ -75,29 +76,29 @@ def commander():
             print(os.path.dirname(curPath) + ":")
             for elem in os.listdir(curPath):
                 if os.path.isdir(curPath + elem):
-                    print(f"{locals.def_locale[4]} {elem}")
+                    print(f"{locpal[4]} {elem}")
                 elif os.path.islink(curPath + elem):
-                    print(f"{locals.def_locale[5]} {elem}")
+                    print(f"{locpal[5]} {elem}")
                 elif os.path.isfile(curPath + elem):
-                    print(f"{locals.def_locale[6]} {elem}")
+                    print(f"{locpal[6]} {elem}")
                 elif os.path.isabs(curPath + elem):
-                    print(f"{locals.def_locale[7]} {elem}")
+                    print(f"{locpal[7]} {elem}")
                 elif os.path.ismount(curPath + elem):
-                    print(f"{locals.def_locale[8]} {elem}")
+                    print(f"{locpal[8]} {elem}")
                 else:
-                    print(f"{locals.def_locale[9]} {elem}")
+                    print(f"{locpal[9]} {elem}")
         case "cp":
             if os.path.isdir(noCmdReceiver):
                 curPath = noCmdReceiver
             else:
-                print(locals.def_locale[10])
+                print(locpal[10])
 
         case "dbg":
             print(receiver[1])
 
 
         case "stop":
-            print(locals.def_locale[11])
+            print(locpal[11])
             quit(0)
 
         case "py":
@@ -109,7 +110,7 @@ def commander():
                         pl_c = pl_c + "import " + lib + "; "
                     exec(str(pl_c) + " ".join(receiver[2:]))
                 else:
-                    print(locals.def_locale[12])
+                    print(locpal[12])
                 """except Exception as excepting:
                     print("Ошибка Python!\n" + str(excepting))
                     pass"""
@@ -124,12 +125,12 @@ def commander():
                 try:
                     os.system('cls' if os.name == 'nt' else 'clear')
                 except Exception:
-                    print(locals.def_locale[3])
+                    print(locpal[3])
             elif not cantClear and noCmdReceiver == "1":
-                print(locals.def_locale[13])
+                print(locpal[13])
                 autoClear = True
             elif not cantClear and noCmdReceiver == "0":
-                print(locals.def_locale[14])
+                print(locpal[14])
                 autoClear = False
 
         case "var":
@@ -143,7 +144,7 @@ def commander():
                 elif receiver[1] == "input":
                     usrvars[receiver[2]] = input(str(receiver[2]) + ": ")
             except Exception:
-                print(locals.def_locale[15])
+                print(locpal[15])
 
         case "sectonfetch":
             import screeninfo
@@ -183,7 +184,7 @@ def commander():
             print()
 
         case _:
-            print(locals.def_locale[16])
+            print(locpal[16])
 
     if not scriptmode:
         aftermath()
@@ -200,19 +201,14 @@ def execscript():
 
 
 if len(sys.argv) > 1:
-    print(locals.def_locale[17])
+    print(locpal[17])
     dFileInsides = open(sys.argv[1], "r")
     for line in dFileInsides:
         if line.startswith("py "):
-            print("Данный СКЛипт содержит выполнение Python команд.\n"
-                  "Проблема в том, что через Python команды злоумышленник\n"
-                  "Может сделать что-то плохое с вашей системой, например удалить файлы.\n\n"
-                  "Если же вы доверяете этому СКЛипту, либо вы написали этот СКЛипт,\n"
-                  "чтобы продолжить, введите 1. Иначе же 0. Если вы знаете Python,\n"
-                  "Вы можете просмотреть py команды (2). Время выбирать.")
-            choice = int(input("Выбор за вами: "))
+            print(locpal[19])
+            choice = int(input(locpal[20]))
             if choice <= 0:
-                receiver[0] = "stop"
+                receiver = "stop"
                 commander()
             elif choice == 1:
                 execscript()
@@ -220,15 +216,15 @@ if len(sys.argv) > 1:
                 for lin2 in dFileInsides:
                     if line.startswith("py "):
                         print(line.removeprefix("py "))
-                choice = int(input("Выбор за вами: "))
+                choice = int(input(locpal[20]))
                 if choice <= 0:
-                    receiver[0] = "stop"
+                    receiver = "stop"
                     commander()
                 elif choice == 1:
                     execscript()
             break
 else:
-    print(locals.def_locale[17])
+    print(locpal[17])
     # droppedFile = ""
 
 aftermath()
