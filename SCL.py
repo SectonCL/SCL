@@ -202,7 +202,7 @@ def commander():
                 print(locpal[21])
 
 
-
+        case "": print("lol ok")
         case _:
             print(locpal[16])
 
