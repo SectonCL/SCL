@@ -1,19 +1,31 @@
 print("Loading...")
+locpal = locals.def_locale
 import os
 import sys
 import random
-import termcolor
-from termcolor import colored
-import webbrowser
 
 import locals
 import info
+try:
+    import termcolor
+    from termcolor import colored
+    import webbrowser
+    import subprocess
+except ModuleNotFoundError:
+    print(locpal[24])
+    answer = str(input("[Y/N]: "))
+    if answer.lower().startswith("y"):
+        os.system("pip3 install termcolor webbrowser subprocess")
+        print(locpal[25])
+    else:
+        quit(2)
+
+
 
 dFileInsides = ""
 cantClear = False
 autoClear = False
 scriptmode = False
-locpal = locals.def_locale
 plilibs = []
 cmds = {}
 receiver = ["f"]       # Received output including everything
@@ -43,6 +55,8 @@ def aftermath():
     global usrvars
     receiver = str(input(colored("S", "blue") + colored("C", "green") + colored("L", "red") + ": "))
     receiver = receiver.split(" ")  # Splitting to get every args
+
+    # ARGUMENTS
     for index, arg in enumerate(receiver):
         if arg.__contains__("{var:"):
             modified_arg = arg.replace("{var:", "")
@@ -50,11 +64,21 @@ def aftermath():
                 receiver[index] = usrvars[modified_arg] # This works now
             except KeyError as bigE:
                 print(f"{locpal[2]} {bigE}!")
+        elif arg.__contains__("{rand:"):
+            modified_arg = arg.replace("{rand:", "")
+            modified_arg = modified_arg.split(",", 1)
+            print(modified_arg)
+            try:
+                receiver[index] = str(random.randrange(random.randrange(int(modified_arg[0]), int(modified_arg[1]))))
+            except Exception:
+                receiver.pop(index)
+                print(locpal[23])
+
     noCmdReceiver = " ".join(receiver[1:]).replace(">[",   curPath)
     commander()
 
 
-
+# COMMANDS
 def commander():
     global curPath
     global receiver
@@ -105,24 +129,6 @@ def commander():
             print(locpal[11])
             sys.exit(0)
 
-        case "py":
-            if receiver[1].startswith("exec"):
-                """try:"""
-                if not noCmdReceiver.__contains__("quit") and not noCmdReceiver.__contains__("exit"):
-                    pl_c = ""
-                    for lib in plilibs:
-                        pl_c = pl_c + "import " + lib + "; "
-                    exec(str(pl_c) + " ".join(receiver[2:]))
-                else:
-                    print(locpal[12])
-                """except Exception as excepting:
-                    print("Ошибка Python!\n" + str(excepting))
-                    pass"""
-            elif receiver[1].startswith("lib"):
-                if receiver[2] == "install":
-                    plilibs.append(receiver[3])
-                elif receiver[2] == "remove":
-                    plilibs.remove(receiver[3])
 
         case "clr":
             if not cantClear and noCmdReceiver == "":
@@ -185,7 +191,7 @@ def commander():
             webbrowser.open(noCmdReceiver)
 
         case "help":
-            print()
+            subprocess.Popen(["python3", "./windows/SCLHelp/sclhelp.py"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
         case "lang":
             try:

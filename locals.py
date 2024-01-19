@@ -41,18 +41,21 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "Time to choose.", #19 Securit issued,
              "Time to choose: ", # 20 Choosing time, G-Man reference.
              "SCL wasn't translated for this language.", # 21
-             ["Who am I", # 0 user
-              "OS", # 1 Operating System
-              "Kernel", # 2
-              "Uptime", # 3 How long system works
-              "Screen", # 4
-              "Architecture", # 5 CPU type
-              "Processor", # 6 CPU
-              "RAM:", # 7 Memory
-              "Authors", # 8 SCL Authors
-              "Version", # 9 SCL Version
-              " Thanks for your interest in SCL!" # 10 Keep the space before the sentence!
-              ] # 22 sectonfetch
+             ["Who am I", # 21.0 user
+              "OS", # 21.1 Operating System
+              "Kernel", # 21.2
+              "Uptime", # 21.3 How long system works
+              "Screen", # 21.4
+              "Architecture", # 21.5 CPU type
+              "Processor", # 21.6 CPU
+              "RAM:", # 21.7 Memory
+              "Authors", # 21.8 SCL Authors
+              "Version", # 21.9 SCL Version
+              " Thanks for your interest in SCL!" # 21.10 Keep the space before the sentence!
+              ], # 22 sectonfetch
+             "Check if you correctly written numbers.", # 23 Error when writing "{rand" argument parameters wrong
+             "Looks like you don't have installed libraries in order for SCL to work. Would you like to install them?", # 24
+             "Done!" # 25
              ]
 
 ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear terminal
@@ -107,7 +110,10 @@ ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear 
               "Авторы", # 8 SCL Authors
               "Версия", # 9 SCL Version
               " Спасибо за ваш интерес в SCL!" # 10 Keep the space before the sentence!
-              ] # 22 sectonfetch
+              ], # 22 sectonfetch
+             "Проверь правильность введёных чисел.", # 23
+             "Походу, у вас не все библиотеки установлены, на которых работает SCL. Хотите установить их?", # 24
+             "Готово!" # 25
              ]
 
 def_locale: list = globals()[default_lang + "_locale"] # This variable will load the localization strings from default lang
