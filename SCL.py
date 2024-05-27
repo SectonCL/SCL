@@ -1,11 +1,15 @@
-print("Loading...")
-locpal = locals.def_locale
-import os
-import sys
-import random
-
 import locals
 import info
+locpal = locals.def_locale
+
+import os
+import sys
+from platform import uname, uname_result
+if sys.argv.__len__() == 1: print("Loading...")
+import random
+import easygui_qt
+
+
 try:
     import termcolor
     from termcolor import colored
@@ -15,7 +19,7 @@ except ModuleNotFoundError:
     print(locpal[24])
     answer = str(input("[Y/N]: "))
     if answer.lower().startswith("y"):
-        os.system("pip3 install termcolor webbrowser subprocess")
+        os.system("pip3 install termcolor webbrowser subprocess easygui_qt")
         print(locpal[25])
     else:
         quit(2)
@@ -31,12 +35,13 @@ cmds = {}
 receiver = ["f"]       # Received output including everything
 noCmdReceiver = "yes"  # Received output without the first word, NOT a list.
 curPath = "C:/" if os.name == 'nt' else "/"
-usrvars = {
-    "test": "Nothin' to see here."
-}
+usrvars = { "test": "Nothin' to see here." }
+
+
 
 try:
-    os.system('cls' if os.name == 'nt' else 'clear')
+    if sys.argv.__len__() == 1:
+        os.system('cls' if os.name == 'nt' else 'clear')
 except Exception:
     print(locpal[0])
     cantClear = True
@@ -47,13 +52,9 @@ def regcommand(name: str, desc: str = locpal[1]):
     global cmds
     cmds[name] = desc
 
-
-
-def aftermath():
+def modifyargs():
     global receiver
     global noCmdReceiver
-    global usrvars
-    receiver = str(input(colored("S", "blue") + colored("C", "green") + colored("L", "red") + ": "))
     receiver = receiver.split(" ")  # Splitting to get every args
 
     # ARGUMENTS
@@ -67,14 +68,25 @@ def aftermath():
         elif arg.__contains__("{rand:"):
             modified_arg = arg.replace("{rand:", "")
             modified_arg = modified_arg.split(",", 1)
-            print(modified_arg)
             try:
                 receiver[index] = str(random.randrange(random.randrange(int(modified_arg[0]), int(modified_arg[1]))))
             except Exception:
                 receiver.pop(index)
                 print(locpal[23])
+        elif arg.__contains__("{truefalse:"):
+            modified_arg = arg.replace("{truefalse:", "")
+            modified_arg = modified_arg.split(",", 1)
+            receiver[index] = str(easygui_qt.get_yes_or_no(modified_arg[0], modified_arg[1]))
 
     noCmdReceiver = " ".join(receiver[1:]).replace(">[",   curPath)
+
+
+def aftermath():
+    global receiver
+    global noCmdReceiver
+    global usrvars
+    receiver = str(input(colored("S", "blue") + colored("C", "green") + colored("L", "red") + ": "))
+    modifyargs()
     commander()
 
 
@@ -100,7 +112,7 @@ def commander():
             print(noCmdReceiver)
 
 
-        case "sp":
+        case "spath":
             print(os.path.dirname(curPath) + ":")
             for elem in os.listdir(curPath):
                 if os.path.isdir(curPath + elem):
@@ -115,7 +127,7 @@ def commander():
                     print(f"{locpal[8]} {elem}")
                 else:
                     print(f"{locpal[9]} {elem}")
-        case "cp":
+        case "cpath":
             if os.path.isdir(noCmdReceiver):
                 curPath = noCmdReceiver
             else:
@@ -124,6 +136,16 @@ def commander():
         case "dbg":
             print(receiver[1])
 
+        case "logic":
+            if receiver[1] == "True":
+                print("beta")
+
+
+        case "infodialog":
+            if receiver.__len__() == 1:
+                print("You must write at least a message!")
+            else:
+                easygui_qt.show_message(receiver[1], receiver[2] if receiver.__len__() >= 3 else "Information")
 
         case "stop":
             print(locpal[11])
@@ -144,17 +166,20 @@ def commander():
                 autoClear = False
 
         case "var":
-            if receiver[1] == "set":
-                usrvars[receiver[2]] = " ".join(receiver[3:])
             try:
-                if receiver[1] == "remove":
-                    usrvars.pop(receiver[2])
-                elif receiver[1] == "read":
-                    print(usrvars[receiver[2]])
-                elif receiver[1] == "input":
-                    usrvars[receiver[2]] = input(str(receiver[2]) + ": ")
-            except Exception:
-                print(locpal[15])
+                if receiver[1] == "set":
+                    usrvars[receiver[2]] = " ".join(receiver[3:])
+                try:
+                    if receiver[1] == "remove":
+                        usrvars.pop(receiver[2])
+                    elif receiver[1] == "read":
+                        print(usrvars[receiver[2]])
+                    elif receiver[1] == "input":
+                        usrvars[receiver[2]] = input(str(receiver[2]) + ": ")
+                except Exception:
+                    print(locpal[15])
+            except IndexError:
+                print("Set the settings!")
 
         case "sectonfetch":
             import screeninfo
@@ -211,44 +236,36 @@ def commander():
         case "": print("lol ok")
         case _:
             print(locpal[16])
+    if uname()["NAME"] is "SCOSP":
+        match receiver[0]:
+            case "shutdown": os.system("sudo shutdown now -h")
+            case "restart" : os.system("sudo reboot")
 
-    if not scriptmode:
+    if not scriptmode and sys.argv.__len__() == 1:
         aftermath()
 
 
+if sys.argv.__len__() > 1 and not os.path.isfile(sys.argv[1]):
+    receiver = sys.argv[1:]
+    noCmdReceiver = " ".join(receiver[1:]).replace(">[",   curPath)
+    commander()
+    quit(2)
 
 def execscript():
     global receiver
     global noCmdReceiver
     for lining in dFileInsides:
-        receiver = " ".split(lining)
-        noCmdReceiver = receiver[1:]
+        receiver = lining
+        modifyargs()
         commander()
 
-
-if len(sys.argv) > 1:
-    print(locpal[17])
+if len(sys.argv) > 1 and os.path.isfile(sys.argv[1]):
+    print("SCL: SCRIPT MODE.")
+    print(locpal[19])
+    print("-" * os.get_terminal_size().columns)
+    scriptmode = True
     dFileInsides = open(sys.argv[1], "r")
-    for line in dFileInsides:
-        if line.startswith("py "):
-            print(locpal[19])
-            choice = int(input(locpal[20]))
-            if choice <= 0:
-                receiver = "stop"
-                commander()
-            elif choice == 1:
-                execscript()
-            else:
-                for lin2 in dFileInsides:
-                    if line.startswith("py "):
-                        print(line.removeprefix("py "))
-                choice = int(input(locpal[20]))
-                if choice <= 0:
-                    receiver = "stop"
-                    commander()
-                elif choice == 1:
-                    execscript()
-            break
+    execscript()
 else:
     print(locpal[17])
     # droppedFile = ""

@@ -31,14 +31,8 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "Welcome to SCL!", #17 App startup
              "Checking SCLipt for security issues...", #18 File drag-n-dropped into SCL
 
-             "This SCLipt contains Python commands.\n"
-             "The issue is that the attacker can do something bad\n"
-             "to your system, for example removing files.\n\n"
-             "If you trust this SCLipt, or you wrote this,\n"
-             "you can continue by entering 1, else 0. If you know Python,\n"
-             "You can check py commands (2).\n"
-             "We don't take any responsibility for any damage from third-party SCLipts.\n"
-             "Time to choose.", #19 Securit issued,
+
+             "We don't take any responsibility for any damage from third-party SCLipts.", #19 Securit issued,
              "Time to choose: ", # 20 Choosing time, G-Man reference.
              "SCL wasn't translated for this language.", # 21
              ["Who am I", # 21.0 user
