@@ -2,13 +2,15 @@
 -----
 SCL is an command-line interpreter that's built on pure Python.
 
+Looking for an [OS Version](https://github.com/SectonCL/OS)?
+
 ## Modules to install (For source code)
 `termcolor`, `webbrowser`
 
-## What's not done yet
-* Scripts for SCL support (something like .bat)
-* Language preference auto-save
-* Help command
+## Things to come
+- [ ] Scripts for SCL support (something like .bat)
+- [ ] Language preference auto-save
+- [ ] Help command
 
 ## Windows/macOS support?
 nope. I can't compile it for Windows or macOS.
