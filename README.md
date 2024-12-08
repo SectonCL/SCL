@@ -7,7 +7,7 @@ SCL is an command-line interpreter that's built on pure Python.
 ## Modules to install
 `termcolor` `webbrowser` `easygui_qt` `screeninfo`
 
-## What's not done yet
+## What was not done
 * Scripts for SCL support (something like .bat)
 * Language preference auto-save
 

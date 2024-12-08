@@ -6,11 +6,11 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "SCL does not support your OS's commands.",  #3 Self-explanatory.
 
              # Keep the string width the same, add the spaces before the words. Here's the example:
-             # GOOD:
+             # DO THIS:
              # " first:"
              # "second:"
              # "  nine:"
-             # BAD:
+             # DON'T DO THAT:
              # "first:"
              # "second:"
              # "nine:"
