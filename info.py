@@ -1,2 +1,4 @@
-version = "3.5: 2024, 27 May"
-step = 34 # Total commits/localchanges
+version = "3.6"
+changeDate = "2024, 8 December"
+edition = "Final"
+step = 36 # Total commits/local changes

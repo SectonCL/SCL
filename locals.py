@@ -32,7 +32,7 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
              "Checking SCLipt for security issues...", #18 File drag-n-dropped into SCL
 
 
-             "We don't take any responsibility for any damage from third-party SCLipts.", #19 Securit issued,
+             "We don't take any responsibility for any damage from third-party SCLipts.", #19 Security warning
              "Time to choose: ", # 20 Choosing time, G-Man reference.
              "SCL wasn't translated for this language.", # 21
              ["Who am I", # 21.0 user
@@ -42,10 +42,10 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
               "Screen", # 21.4
               "Architecture", # 21.5 CPU type
               "Processor", # 21.6 CPU
-              "RAM:", # 21.7 Memory
+              "RAM", # 21.7 Memory
               "Authors", # 21.8 SCL Authors
               "Version", # 21.9 SCL Version
-              " Thanks for your interest in SCL!" # 21.10 Keep the space before the sentence!
+              "SCL will return as SRSh!" # 21.10
               ], # 22 sectonfetch
              "Check if you correctly written numbers.", # 23 Error when writing "{rand" argument parameters wrong
              "Looks like you don't have installed libraries in order for SCL to work. Would you like to install them?", # 24
@@ -54,7 +54,7 @@ en_locale = ["SCL could not clear the terminal output.",  #0 Can't clear termina
 
 ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear terminal
              "Описание отсутствует",  # 1 Command has no description
-             "Искомое имя не принадлежит ни одной переменной",  # 2 :) Написал так, как написано, если поисковой движок Яндекса в Государственном Каталоге Сайтов не найдёт ничего
+             "Искомое имя не принадлежит ни одной переменной",  # 2
              "SCL частично не поддерживает вашу ОС.",  # 3 Self-explanatory.
 
              # Keep the string width the same, add the spaces before the words. Here's the example:
@@ -100,10 +100,10 @@ ru_locale = ["SCL не смог очистить вывод.",  # 0 Can't clear 
               "Экран", # 4
               "Архитектура", # 5 CPU type
               "Процессор", # 6 CPU
-              "Оперативная память:", # 7 Memory
+              "Оперативная память", # 7 Memory
               "Авторы", # 8 SCL Authors
               "Версия", # 9 SCL Version
-              " Спасибо за ваш интерес в SCL!" # 10 Keep the space before the sentence!
+              "SCL вернётся как SRSh!" # 10 Keep the space before the sentence!
               ], # 22 sectonfetch
              "Проверь правильность введёных чисел.", # 23
              "Походу, у вас не все библиотеки установлены, на которых работает SCL. Хотите установить их?", # 24
