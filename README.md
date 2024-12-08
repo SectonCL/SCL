@@ -1,5 +1,5 @@
 ![SCL Logo](scllogo.webp "SCL Logo")
-> ![IMPORTANT]
+> [!IMPORTANT]
 > SCL is now being deprecated in favor of SRSh
 -----
 SCL is an command-line interpreter that's built on pure Python.
